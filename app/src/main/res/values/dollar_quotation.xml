@@ -1,0 +1,15 @@
+<resources>
+    <string name="dollar_actual_value">Cotação Atualizada:</string>
+    <string name="dollar_percentage">Porcentagem</string>
+    <string name="dollar_value">Valor</string>
+    <string name="dollar_activity">Queda do Dólar</string>
+    <string name="activate_notification">Ativar Notificação</string>
+    <string name="notification_title">Queda do Dólar</string>
+    <string name="notification_text">O dólar sofreu uma queda e atingiu o valor esperado por você. Aproveite!</string>
+    <string name="radio_value">Valor Monetário</string>
+    <string name="radio_percentage">Porcentagem</string>
+    <string name="notification_done">Feito! Você será notificado quando o valor fornecido for atingido.</string>
+
+    <string name="json_cotacao">cotacao</string>
+    <string name="json_dolar">dolar</string>
+</resources>

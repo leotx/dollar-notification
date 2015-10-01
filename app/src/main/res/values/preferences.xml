@@ -1,0 +1,6 @@
+<resources>
+    <string name="preferences_name">DOLLAR</string>
+    <string name="preferences_percentage">PERCENTAGE</string>
+    <string name="preferences_quotation_value">QUOTATION_VALUE</string>
+    <string name="preferences_currency_value">CURRENCY_VALUE</string>
+</resources>
