@@ -18,6 +18,7 @@ public class PreferencesHelper {
             sharedEditor.putString(appContext.getString(R.string.preferences_currency_value), entryValue);
         }
 
+        sharedEditor.putBoolean(appContext.getString(R.string.preferences_ispercentage), isPercentage);
         sharedEditor.putString(appContext.getString(R.string.preferences_quotation_value), dollar);
         sharedEditor.commit();
     }

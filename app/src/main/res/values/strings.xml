@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Queda do Dólar</string>
     <string name="action_settings">Configurações</string>
+    <string name="preferences_ispercentage">PREFERENCES_ISPERCENTAGE</string>
 </resources>

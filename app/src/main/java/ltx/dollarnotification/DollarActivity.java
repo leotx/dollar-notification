@@ -41,10 +41,11 @@ public class DollarActivity extends ActionBarActivity {
         txtDollarValue = (TextView) findViewById(R.id.lblCurrentDollarValue);
 
         txtPercentage = (EditText) findViewById(R.id.txtEntryValue);
-        txtPercentage.setText(settings.getString(getString(R.string.preferences_percentage), ""));
 
         rPercentage = (RadioButton) findViewById(R.id.rPercentage);
         rValue = (RadioButton) findViewById(R.id.rValue);
+
+        verifyType(settings);
 
         btnNotification = (Button) findViewById(R.id.btnNotification);
         notificationClick();
@@ -53,6 +54,19 @@ public class DollarActivity extends ActionBarActivity {
         refreshClick();
 
         btnRefresh.performClick();
+    }
+
+    private void verifyType(SharedPreferences settings) {
+        boolean isPercentage = settings.getBoolean(getString(R.string.preferences_ispercentage), true);
+
+        if (isPercentage){
+            rPercentage.setChecked(true);
+            txtPercentage.setText(settings.getString(getString(R.string.preferences_percentage), ""));
+        }
+        else {
+            rValue.setChecked(true);
+            txtPercentage.setText(settings.getString(getString(R.string.preferences_currency_value), ""));
+        }
     }
 
     private void refreshClick() {
