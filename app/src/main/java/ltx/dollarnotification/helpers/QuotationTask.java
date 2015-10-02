@@ -14,21 +14,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-import ltx.dollarnotification.R;
-
-class QuotationTask extends AsyncTask<Void, Void, String> {
+public class QuotationTask extends AsyncTask<Void, Void, JSONObject> {
     private final String URL = "http://developers.agenciaideias.com.br/cotacoes/json";
 
     @Override
-    protected String doInBackground(Void... v) {
+    protected JSONObject doInBackground(Void... v) {
         InputStream is = null;
 
         try {
             is = new URL(URL).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject dollarObject = new JSONObject(jsonText).getJSONObject(App.getContext().getString(R.string.json_dolar));
-            return dollarObject.getString(App.getContext().getString(R.string.json_cotacao));
+            return new JSONObject(readAll(rd));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

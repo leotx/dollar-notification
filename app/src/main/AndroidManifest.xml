@@ -15,9 +15,17 @@
             android:label="@string/dollar_activity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".helpers.NotificationService"/>
+
+        <service android:name=".helpers.NotificationService" />
+
+        <activity
+            android:name=".activities.ExchangeActivity"
+            android:label="@string/title_activity_exchange" >
+        </activity>
     </application>
+
 </manifest>

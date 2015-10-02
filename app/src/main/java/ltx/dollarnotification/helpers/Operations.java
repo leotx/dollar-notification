@@ -10,6 +10,9 @@ import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
@@ -74,16 +77,20 @@ public class Operations {
 
     @Nullable
     public static double getCurrentDollar() {
-        double currentDollar = 0;
-
         try {
-            currentDollar = Double.parseDouble(new QuotationTask().execute().get());
+            JSONObject dollarObject = new QuotationTask().execute().get()
+                    .getJSONObject(App.getContext().getString(R.string.json_dolar));
+
+            return Double.parseDouble(dollarObject.getString(App.getContext()
+                    .getString(R.string.json_cotacao)));
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        return currentDollar;
+        return 0.0;
     }
 }

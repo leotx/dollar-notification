@@ -13,4 +13,7 @@
 
     <string name="json_cotacao">cotacao</string>
     <string name="json_dolar">dolar</string>
+    <string name="json_euro">euro</string>
+    <string name="json_bovespa">bovespa</string>
+    <string name="json_variation">variacao</string>
 </resources>
