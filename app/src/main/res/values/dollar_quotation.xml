@@ -9,6 +9,7 @@
     <string name="radio_value">Valor Monetário</string>
     <string name="radio_percentage">Porcentagem</string>
     <string name="notification_done">Feito! Você será notificado quando o valor fornecido for atingido.</string>
+    <string name="notification_error">É necessário atribuir um valor para ativar a notificação.</string>
 
     <string name="json_cotacao">cotacao</string>
     <string name="json_dolar">dolar</string>

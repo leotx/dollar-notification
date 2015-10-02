@@ -19,9 +19,9 @@ public class DollarHelper {
         Context appContext = App.getContext();
 
         final SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        Double percentageEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_percentage), "0"));
-        Double currencyEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_currency_value), "0"));
-        Double lastDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_quotation_value), "0"));
+        Double percentageEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_percentage), "0.0"));
+        Double currencyEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_currency_value), "0.0"));
+        Double lastDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_quotation_value), "0.0"));
 
         currentDollar = roundedValue(currencyEntry, currentDollar);
 

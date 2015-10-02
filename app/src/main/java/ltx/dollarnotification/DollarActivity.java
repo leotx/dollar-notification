@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class DollarActivity extends ActionBarActivity {
 
@@ -67,7 +69,9 @@ public class DollarActivity extends ActionBarActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                NumberFormat formatter = new DecimalFormat("$##0.00##");
+                                DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+                                DecimalFormat formatter = new DecimalFormat("$##0.00##", otherSymbols);
+
                                 txtDollarValue.setText(formatter.format(dollarValue));
                             }
                         });
@@ -92,6 +96,10 @@ public class DollarActivity extends ActionBarActivity {
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vw) {
+                if (txtPercentage.getText().toString().matches("")){
+                    Toast.makeText(getApplicationContext(), R.string.notification_error, Toast.LENGTH_SHORT).show();
+                }
+
                 String dollarValue = txtDollarValue.getText().toString().replace("$","");
 
                 PreferencesHelper.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
