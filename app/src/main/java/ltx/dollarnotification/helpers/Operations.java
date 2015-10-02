@@ -1,4 +1,4 @@
-package ltx.dollarnotification;
+package ltx.dollarnotification.helpers;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -13,7 +13,9 @@ import android.support.v4.app.NotificationCompat;
 import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
-public class DollarHelper {
+import ltx.dollarnotification.R;
+
+public class Operations {
 
     public boolean verifyDollar(double currentDollar) {
         Context appContext = App.getContext();

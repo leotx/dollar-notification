@@ -1,9 +1,11 @@
-package ltx.dollarnotification;
+package ltx.dollarnotification.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class PreferencesHelper {
+import ltx.dollarnotification.R;
+
+public class Preferences {
     public static void createPreferences(String dollar, String entryValue, boolean isPercentage){
         Context appContext = App.getContext();
 

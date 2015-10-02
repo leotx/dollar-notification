@@ -1,9 +1,8 @@
-package ltx.dollarnotification;
+package ltx.dollarnotification.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,8 +16,12 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.Locale;
+
+import ltx.dollarnotification.helpers.Operations;
+import ltx.dollarnotification.helpers.NotificationService;
+import ltx.dollarnotification.helpers.Preferences;
+import ltx.dollarnotification.R;
 
 public class DollarActivity extends ActionBarActivity {
 
@@ -78,7 +81,7 @@ public class DollarActivity extends ActionBarActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        final double dollarValue = DollarHelper.getCurrentDollar();
+                        final double dollarValue = Operations.getCurrentDollar();
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -116,7 +119,7 @@ public class DollarActivity extends ActionBarActivity {
 
                 String dollarValue = txtDollarValue.getText().toString().replace("$","");
 
-                PreferencesHelper.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
+                Preferences.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
 
                 Toast.makeText(getApplicationContext(), R.string.notification_done, Toast.LENGTH_SHORT).show();
             }

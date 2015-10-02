@@ -1,6 +1,5 @@
-package ltx.dollarnotification;
+package ltx.dollarnotification.helpers;
 
-import android.content.res.Resources;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -14,6 +13,8 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+
+import ltx.dollarnotification.R;
 
 class QuotationTask extends AsyncTask<Void, Void, String> {
     private final String URL = "http://developers.agenciaideias.com.br/cotacoes/json";
