@@ -31,6 +31,15 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         assertEquals(true, dollarVerify);
     }
 
+    public void testVerifyDollarValueFalse(){
+        PreferencesHelper.createPreferences("3.95", "3.96", false);
+        Double currentDollar = 3.97;
+        DollarHelper dollarHelper = new DollarHelper();
+        boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
+
+        assertEquals(false, dollarVerify);
+    }
+
     public void testVerifyPercentage(){
         PreferencesHelper.createPreferences("3.95", "0.51", true);
         Double currentDollar = 3.93;
@@ -47,6 +56,15 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
+    }
+
+    public void testVerifyPercentageFalse(){
+        PreferencesHelper.createPreferences("3.95", "0.52", true);
+        Double currentDollar = 3.93;
+        DollarHelper dollarHelper = new DollarHelper();
+        boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
+
+        assertEquals(false, dollarVerify);
     }
 
     public void testVerifyDollarValueWithoutRounded(){
