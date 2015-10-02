@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.concurrent.ExecutionException;
 
 public class DollarActivity extends ActionBarActivity {
 
@@ -46,7 +45,7 @@ public class DollarActivity extends ActionBarActivity {
         rValue = (RadioButton) findViewById(R.id.rValue);
 
         btnNotification = (Button) findViewById(R.id.btnNotification);
-        notificationClick(settings);
+        notificationClick();
 
         btnRefresh = (Button) findViewById(R.id.btnRefresh);
         refreshClick();
@@ -63,7 +62,7 @@ public class DollarActivity extends ActionBarActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        final double dollarValue = getCurrentDollar();
+                        final double dollarValue = DollarHelper.getCurrentDollar();
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -89,43 +88,17 @@ public class DollarActivity extends ActionBarActivity {
         });
     }
 
-    private void notificationClick(final SharedPreferences settings) {
+    private void notificationClick() {
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vw) {
-                SharedPreferences.Editor sharedEditor = settings.edit();
-                sharedEditor.remove(getString(R.string.preferences_percentage));
-                sharedEditor.remove(getString(R.string.preferences_currency_value));
-
-                if (rPercentage.isChecked()) {
-                    sharedEditor.putString(getString(R.string.preferences_percentage), String.valueOf(txtPercentage.getText()));
-                } else {
-                    sharedEditor.putString(getString(R.string.preferences_currency_value), String.valueOf(txtPercentage.getText()));
-                }
-
                 String dollarValue = txtDollarValue.getText().toString().replace("$","");
 
-                sharedEditor.putString(getString(R.string.preferences_quotation_value), dollarValue);
-                sharedEditor.commit();
+                PreferencesHelper.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
 
                 Toast.makeText(getApplicationContext(), R.string.notification_done, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Nullable
-    public static double getCurrentDollar() {
-        double currentDollar = 0;
-
-        try {
-            currentDollar = Double.parseDouble(new QuotationTask().execute().get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return currentDollar;
     }
 
     @Override
