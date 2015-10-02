@@ -11,11 +11,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class NotificationService extends Service {
-    public static final long NOTIFY_INTERVAL = 30 * 60000; // 30 minutes
+    public static final long NOTIFY_INTERVAL = 10 * 60000; // 10 minutes
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
 
@@ -48,17 +49,15 @@ public class NotificationService extends Service {
         }
 
         private void VerifyDollar() {
-            showNotification();
-
             final SharedPreferences settings = getSharedPreferences(getString(R.string.preferences_name), 0);
             Double percentageEntry = Double.parseDouble(settings.getString(getString(R.string.preferences_percentage), "0"));
             Double currencyEntry = Double.parseDouble(settings.getString(getString(R.string.preferences_currency_value), "0"));
             Double lastDollar = Double.parseDouble(settings.getString(getString(R.string.preferences_quotation_value), "0"));
 
-            double currentDollar = DollarActivity.getCurrentDollar();
+            double currentDollar = roundedValue(currencyEntry, DollarActivity.getCurrentDollar());
 
             if (percentageEntry > 0) {
-                Double currentPercentage = ((currentDollar / lastDollar) - 1) * 100;
+                Double currentPercentage = roundedValue(percentageEntry, ((currentDollar / lastDollar) - 1) * 100);
 
                 if (currentPercentage >= percentageEntry) {
                     showNotification();
@@ -67,6 +66,18 @@ public class NotificationService extends Service {
                 showNotification();
             }
         }
+    }
+
+    public double roundedValue(double entryValue, double compareValue){
+        if (entryValue == 0) return compareValue;
+
+        BigDecimal compareDecimal = BigDecimal.valueOf(entryValue);
+
+        if (compareDecimal.scale() <= 2) {
+            return Math.round(compareValue * 100.0) / 100.0;
+        }
+
+        return compareValue;
     }
 
     public void showNotification() {

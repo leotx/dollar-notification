@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.concurrent.ExecutionException;
 
 public class DollarActivity extends ActionBarActivity {
@@ -35,10 +37,7 @@ public class DollarActivity extends ActionBarActivity {
 
         final SharedPreferences settings = getSharedPreferences(getString(R.string.preferences_name), 0);
 
-        String dollarValue = String.valueOf(getCurrentDollar());
-
         txtDollarValue = (TextView) findViewById(R.id.lblCurrentDollarValue);
-        txtDollarValue.setText(dollarValue);
 
         txtPercentage = (EditText) findViewById(R.id.txtEntryValue);
         txtPercentage.setText(settings.getString(getString(R.string.preferences_percentage), ""));
@@ -51,6 +50,8 @@ public class DollarActivity extends ActionBarActivity {
 
         btnRefresh = (Button) findViewById(R.id.btnRefresh);
         refreshClick();
+
+        btnRefresh.performClick();
     }
 
     private void refreshClick() {
@@ -62,12 +63,13 @@ public class DollarActivity extends ActionBarActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        final String dollarValue = String.valueOf(getCurrentDollar());
+                        final double dollarValue = getCurrentDollar();
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                txtDollarValue.setText(dollarValue);
+                                NumberFormat formatter = new DecimalFormat("$##0.00##");
+                                txtDollarValue.setText(formatter.format(dollarValue));
                             }
                         });
 
@@ -101,7 +103,9 @@ public class DollarActivity extends ActionBarActivity {
                     sharedEditor.putString(getString(R.string.preferences_currency_value), String.valueOf(txtPercentage.getText()));
                 }
 
-                sharedEditor.putString(getString(R.string.preferences_quotation_value), (String) txtDollarValue.getText());
+                String dollarValue = txtDollarValue.getText().toString().replace("$","");
+
+                sharedEditor.putString(getString(R.string.preferences_quotation_value), dollarValue);
                 sharedEditor.commit();
 
                 Toast.makeText(getApplicationContext(), R.string.notification_done, Toast.LENGTH_SHORT).show();
