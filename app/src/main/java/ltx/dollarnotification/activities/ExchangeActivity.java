@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.helpers.Operations;
 import ltx.dollarnotification.model.Quotation;
@@ -33,10 +37,31 @@ public class ExchangeActivity extends AppCompatActivity {
         lblBovespaVariation = (TextView) findViewById(R.id.lblBovespaVariation);
 
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        loadSwipe();
+
+        Quotation quotation = Operations.getQuotation();
+        getExchanges(quotation);
+    }
+
+    private void loadSwipe() {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getExchanges();
+
+                Thread thread = new Thread(new Runnable() {
+                    public void run() {
+                        final Quotation quotation = Operations.getQuotation();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                getExchanges(quotation);
+                            }
+                        });
+                    }
+                });
+
+                thread.start();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -46,17 +71,14 @@ public class ExchangeActivity extends AppCompatActivity {
                 }, 5000);
             }
         });
+
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-        getExchanges();
     }
 
-    public void getExchanges() {
-        Quotation quotation = Operations.getQuotation();
-
+    public void getExchanges(Quotation quotation) {
         if (quotation == null)
             return;
 
@@ -68,6 +90,5 @@ public class ExchangeActivity extends AppCompatActivity {
 
         lblBovespaValue.setText(quotation.getBovespa().getCotacao());
         lblBovespaVariation.setText(quotation.getBovespa().getVariacao());
-
     }
 }
