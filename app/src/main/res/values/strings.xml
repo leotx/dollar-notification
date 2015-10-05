@@ -12,4 +12,5 @@
     <string name="deactivate_notification">Desativar Notificação</string>
     <string name="preferences_notification_active">PREFERENCES_NOTIFICATION_ACTIVE</string>
     <string name="notification_deactivated">Notificação desativada com sucesso!</string>
+    <string name="preferences_last_quotation_value">PREFERENCES_LAST_QUOTATION_VALUE</string>
 </resources>

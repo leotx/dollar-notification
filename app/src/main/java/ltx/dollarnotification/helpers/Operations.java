@@ -30,12 +30,18 @@ public class Operations {
         final SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
         Double percentageEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_percentage), "0.0"));
         Double currencyEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_currency_value), "0.0"));
-        Double lastDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_quotation_value), "0.0"));
+        Double quotationDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_quotation_value), "0.0"));
+        Double lastDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_last_quotation_value), "0.0"));
 
         currentDollar = roundedValue(currencyEntry, currentDollar);
 
+        if (lastDollar == currentDollar)
+            return false;
+
+        Preferences.saveCurrentQuotation(currentDollar);
+
         if (percentageEntry > 0) {
-            Double currentPercentage = roundedValue(percentageEntry, ((lastDollar / currentDollar) - 1) * 100);
+            Double currentPercentage = roundedValue(percentageEntry, ((quotationDollar / currentDollar) - 1) * 100);
 
             if (currentPercentage >= percentageEntry) {
                 showNotification();

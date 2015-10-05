@@ -48,4 +48,14 @@ public class Preferences {
         sharedEditor.putBoolean(appContext.getString(R.string.preferences_notification_active), activateNotification);
         sharedEditor.commit();
     }
+
+    public static void saveCurrentQuotation(double currentDollar) {
+        Context appContext = App.getContext();
+
+        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
+        SharedPreferences.Editor sharedEditor = settings.edit();
+
+        sharedEditor.putString(appContext.getString(R.string.preferences_last_quotation_value), String.valueOf(currentDollar));
+        sharedEditor.commit();
+    }
 }
