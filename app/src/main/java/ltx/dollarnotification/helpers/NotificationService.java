@@ -36,6 +36,10 @@ public class NotificationService extends Service {
 
                 @Override
                 public void run() {
+                    if (!Operations.isOnline()){
+                        return;
+                    }
+
                     Double currentDollar = Operations.getCurrentDollar();
                     Operations dollarHelper = new Operations();
                     dollarHelper.verifyDollar(currentDollar);

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
@@ -75,11 +77,23 @@ public class Operations {
         notificationManager.notify(0, notification);
     }
 
+    public static boolean isOnline() {
+        Context appContext = App.getContext();
+
+        ConnectivityManager cm =
+                (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
     @Nullable
     public static double getCurrentDollar() {
         try {
-            JSONObject dollarObject = new QuotationTask().execute().get()
-                    .getJSONObject(App.getContext().getString(R.string.json_dolar));
+            JSONObject jsonObject = new QuotationTask().execute().get();
+            if (jsonObject == null)
+                return 0.0;
+
+            JSONObject dollarObject = jsonObject.getJSONObject(App.getContext().getString(R.string.json_dolar));
 
             return Double.parseDouble(dollarObject.getString(App.getContext()
                     .getString(R.string.json_cotacao)));

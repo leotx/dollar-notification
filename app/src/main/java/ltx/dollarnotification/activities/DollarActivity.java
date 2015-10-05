@@ -40,11 +40,6 @@ public class DollarActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dolar);
 
-        if (!isOnline()){
-            Toast.makeText(getApplicationContext(), R.string.no_connection, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         startService(new Intent(this, NotificationService.class));
 
         final SharedPreferences settings = getSharedPreferences(getString(R.string.preferences_name), 0);
@@ -65,13 +60,6 @@ public class DollarActivity extends ActionBarActivity {
         refreshClick();
 
         btnRefresh.performClick();
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     private void verifyType(SharedPreferences settings) {

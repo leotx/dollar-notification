@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.helpers.App;
+import ltx.dollarnotification.helpers.Operations;
 import ltx.dollarnotification.helpers.QuotationTask;
 
 public class ExchangeActivity extends AppCompatActivity {
@@ -65,6 +67,8 @@ public class ExchangeActivity extends AppCompatActivity {
     public void getExchanges() {
         try {
             JSONObject exchangeObject = new QuotationTask().execute().get();
+
+            if (exchangeObject == null) return;
 
             JSONObject dollarObject = exchangeObject.getJSONObject(getString(R.string.json_dolar));
             JSONObject euroObject = exchangeObject.getJSONObject(getString(R.string.json_euro));

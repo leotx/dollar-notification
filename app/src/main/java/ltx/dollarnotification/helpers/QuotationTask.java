@@ -19,6 +19,10 @@ public class QuotationTask extends AsyncTask<Void, Void, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(Void... v) {
+        if (!Operations.isOnline()){
+            return null;
+        }
+
         InputStream is = null;
 
         try {
