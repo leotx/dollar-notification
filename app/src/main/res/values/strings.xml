@@ -6,7 +6,6 @@
     <string name="euro">Euro</string>
     <string name="dollar">Dólar</string>
     <string name="bovespa">Bovespa</string>
-    <string name="action_settings">Settings</string>
     <string name="no_connection">Sem conexão com a internet!</string>
     <string name="default_value">0.0</string>
     <string name="deactivate_notification">Desativar Notificação</string>
