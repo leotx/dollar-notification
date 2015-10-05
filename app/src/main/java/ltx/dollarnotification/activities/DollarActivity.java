@@ -109,7 +109,7 @@ public class DollarActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
-                                DecimalFormat formatter = new DecimalFormat("$##0.00##", otherSymbols);
+                                DecimalFormat formatter = new DecimalFormat("R$ ##0.00##", otherSymbols);
 
                                 txtDollarValue.setText(formatter.format(dollarValue));
                             }
@@ -141,7 +141,7 @@ public class DollarActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), R.string.notification_error, Toast.LENGTH_SHORT).show();
                     }
 
-                    String dollarValue = txtDollarValue.getText().toString().replace("$","");
+                    String dollarValue = txtDollarValue.getText().toString().replace("R$ ","");
 
                     Preferences.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
                     Preferences.activateNotification();

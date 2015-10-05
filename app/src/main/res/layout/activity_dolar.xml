@@ -34,7 +34,8 @@
         android:layout_above="@+id/rGroupQuotationType"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/btnRefresh" />
+        android:layout_alignTop="@+id/btnRefresh"
+        android:textSize="20dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -56,13 +57,14 @@
         android:text="0"
         android:gravity="center"
         android:id="@+id/lblCurrentDollarValue"
-        android:paddingLeft="10dp"
+        android:paddingLeft="5dp"
         android:textColor="#ff0000"
         android:textStyle="bold"
         android:layout_above="@+id/rGroupQuotationType"
         android:layout_toRightOf="@+id/lblQuotation"
         android:layout_toEndOf="@+id/lblQuotation"
-        android:layout_alignTop="@+id/btnRefresh" />
+        android:layout_alignTop="@+id/btnRefresh"
+        android:textSize="20dp" />
 
     <Button android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"

@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.DollarActivity"
-            android:label="@string/dollar_activity" >
+            android:label="@string/dollar_activity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +26,8 @@
 
         <activity
             android:name=".activities.ExchangeActivity"
-            android:label="@string/title_activity_exchange" >
+            android:label="@string/title_activity_exchange"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
