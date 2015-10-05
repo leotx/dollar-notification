@@ -1,107 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:gravity="center"
-    tools:context="ltx.dollarnotification.activities.ExchangeActivity"
-    android:background="@drawable/background_dollar">
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView android:text="Valor" android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblDollarValue"
-        android:layout_below="@+id/lblDollar"
-        android:layout_alignLeft="@+id/lblDollar"
-        android:layout_alignStart="@+id/lblDollar"
-        android:textColor="#ff0000" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/dollar"
-        android:id="@+id/lblDollar"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            tools:context="ltx.dollarnotification.activities.ExchangeActivity"
+            android:background="@drawable/background_dollar">
 
-    <TextView
-        android:text="Variação"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblDollarVariation"
-        android:layout_below="@+id/lblDollarValue"
-        android:layout_alignLeft="@+id/lblDollarValue"
-        android:layout_alignStart="@+id/lblDollarValue"
-        android:textColor="#ff0000" />
+            <TextView android:text="Valor" android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblDollarValue"
+                android:layout_below="@+id/lblDollar"
+                android:layout_alignLeft="@+id/lblDollar"
+                android:layout_alignStart="@+id/lblDollar"
+                android:textColor="#ff0000" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/euro"
-        android:id="@+id/lblEuro"
-        android:gravity="center"
-        android:layout_marginTop="41dp"
-        android:layout_below="@+id/lblDollarVariation"
-        android:layout_alignLeft="@+id/lblBovespaVariation"
-        android:layout_alignStart="@+id/lblBovespaVariation" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/dollar"
+                android:id="@+id/lblDollar"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:text="Valor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblEuroValue"
-        android:layout_below="@+id/lblEuro"
-        android:layout_alignLeft="@+id/lblBovespaValue"
-        android:layout_alignStart="@+id/lblBovespaValue"
-        android:textColor="#ff0000" />
+            <TextView
+                android:text="Variação"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblDollarVariation"
+                android:layout_below="@+id/lblDollarValue"
+                android:layout_alignLeft="@+id/lblDollarValue"
+                android:layout_alignStart="@+id/lblDollarValue"
+                android:textColor="#ff0000" />
 
-    <TextView
-        android:text="Variação"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblEuroVariation"
-        android:layout_below="@+id/lblEuroValue"
-        android:layout_alignLeft="@+id/lblEuro"
-        android:layout_alignStart="@+id/lblEuro"
-        android:textColor="#ff0000" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/euro"
+                android:id="@+id/lblEuro"
+                android:gravity="center"
+                android:layout_marginTop="41dp"
+                android:layout_below="@+id/lblDollarVariation"
+                android:layout_alignLeft="@+id/lblBovespaVariation"
+                android:layout_alignStart="@+id/lblBovespaVariation" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/bovespa"
-        android:id="@+id/lblBovespa"
-        android:layout_below="@+id/lblEuroVariation"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="34dp" />
+            <TextView
+                android:text="Valor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblEuroValue"
+                android:layout_below="@+id/lblEuro"
+                android:layout_alignLeft="@+id/lblBovespaValue"
+                android:layout_alignStart="@+id/lblBovespaValue"
+                android:textColor="#ff0000" />
 
-    <TextView
-        android:text="Valor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblBovespaValue"
-        android:layout_below="@+id/lblBovespa"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff0000" />
+            <TextView
+                android:text="Variação"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblEuroVariation"
+                android:layout_below="@+id/lblEuroValue"
+                android:layout_alignLeft="@+id/lblEuro"
+                android:layout_alignStart="@+id/lblEuro"
+                android:textColor="#ff0000" />
 
-    <TextView
-        android:text="Variação"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/lblBovespaVariation"
-        android:layout_below="@+id/lblBovespaValue"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff0000" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/bovespa"
+                android:id="@+id/lblBovespa"
+                android:layout_below="@+id/lblEuroVariation"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="34dp" />
 
-</RelativeLayout>
+            <TextView
+                android:text="Valor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblBovespaValue"
+                android:layout_below="@+id/lblBovespa"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ff0000" />
+
+            <TextView
+                android:text="Variação"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/lblBovespaVariation"
+                android:layout_below="@+id/lblBovespaValue"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ff0000" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>

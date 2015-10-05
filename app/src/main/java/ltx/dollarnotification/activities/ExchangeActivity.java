@@ -1,6 +1,8 @@
 package ltx.dollarnotification.activities;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +26,7 @@ public class ExchangeActivity extends AppCompatActivity {
     TextView lblEuroVariation;
     TextView lblBovespaValue;
     TextView lblBovespaVariation;
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,25 @@ public class ExchangeActivity extends AppCompatActivity {
         lblEuroVariation = (TextView) findViewById(R.id.lblEuroVariation);
         lblBovespaValue = (TextView) findViewById(R.id.lblBovespaValue);
         lblBovespaVariation = (TextView) findViewById(R.id.lblBovespaVariation);
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getExchanges();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                }, 5000);
+            }
+        });
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         getExchanges();
     }
