@@ -35,7 +35,7 @@ public class Operations {
 
         currentDollar = roundedValue(currencyEntry, currentDollar);
 
-        if (lastDollar == currentDollar)
+        if (lastDollar == currentDollar || currentDollar == 0)
             return false;
 
         Preferences.saveCurrentQuotation(currentDollar);

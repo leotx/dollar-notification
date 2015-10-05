@@ -3,8 +3,8 @@ package ltx.dollarnotification.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +23,7 @@ import ltx.dollarnotification.helpers.NotificationService;
 import ltx.dollarnotification.helpers.Preferences;
 import ltx.dollarnotification.R;
 
-public class DollarActivity extends ActionBarActivity {
+public class DollarActivity extends AppCompatActivity {
 
     Button btnNotification;
     Button btnRefresh;
