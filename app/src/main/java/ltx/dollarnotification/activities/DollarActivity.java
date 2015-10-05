@@ -59,6 +59,13 @@ public class DollarActivity extends ActionBarActivity {
         btnRefresh.performClick();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        btnRefresh.performClick();
+    }
+
     private void verifyType(SharedPreferences settings) {
         boolean isPercentage = settings.getBoolean(getString(R.string.preferences_ispercentage), true);
         boolean notificationActive = Preferences.getNotification();
