@@ -55,9 +55,7 @@ public class ExchangeActivity extends AppCompatActivity {
     }
 
     public void getExchanges() {
-        Operations.loadQuotations();
-
-        Quotation quotation = Operations.quotation;
+        Quotation quotation = Operations.getQuotation();
 
         if (quotation == null)
             return;

@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.model.Quotation;
 
@@ -44,11 +45,10 @@ public class NotificationService extends Service {
                         return;
                     }
 
-                    Operations.loadQuotations();
+                    Quotation quotation = Operations.getQuotation();
+                    if (quotation == null) return;
 
-                    if (Operations.quotation == null) return;
-
-                    Double currentDollar = Double.parseDouble(Operations.quotation.getDolar().getCotacao());
+                    Double currentDollar = Double.parseDouble(quotation.getDolar().getCotacao());
                     Operations dollarHelper = new Operations();
                     dollarHelper.verifyDollar(currentDollar);
                 }

@@ -22,6 +22,7 @@ import ltx.dollarnotification.helpers.Operations;
 import ltx.dollarnotification.helpers.NotificationService;
 import ltx.dollarnotification.helpers.Preferences;
 import ltx.dollarnotification.R;
+import ltx.dollarnotification.model.Quotation;
 
 public class DollarActivity extends AppCompatActivity {
 
@@ -95,11 +96,14 @@ public class DollarActivity extends AppCompatActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        Operations.loadQuotations();
+                        Quotation quotation = Operations.getQuotation();
 
-                        if (Operations.quotation == null) return;
+                        if (quotation == null){
+                            dAnimate.stop();
+                            return;
+                        }
 
-                        final double dollarValue = Double.parseDouble(Operations.quotation.getDolar().getCotacao());
+                        final double dollarValue = Double.parseDouble(quotation.getDolar().getCotacao());
 
                         runOnUiThread(new Runnable() {
                             @Override
