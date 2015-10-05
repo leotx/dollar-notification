@@ -36,7 +36,7 @@ public class DollarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dolar);
+        setContentView(R.layout.activity_dollar);
 
         startService(new Intent(this, NotificationService.class));
 
