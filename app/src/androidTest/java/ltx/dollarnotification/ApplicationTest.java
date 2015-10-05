@@ -15,6 +15,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "3.94", false);
         Double currentDollar = 3.93;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
@@ -24,6 +25,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "3.96", false);
         Double currentDollar = 3.9647;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
@@ -33,6 +35,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "3.96", false);
         Double currentDollar = 3.97;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(false, dollarVerify);
@@ -42,6 +45,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "0.51", true);
         Double currentDollar = 3.93;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
@@ -51,6 +55,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "0.5089", true);
         Double currentDollar = 3.93;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
@@ -60,6 +65,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "0.52", true);
         Double currentDollar = 3.93;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(false, dollarVerify);
@@ -69,6 +75,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         Preferences.createPreferences("3.95", "3.9647", false);
         Double currentDollar = 3.9647;
         Operations dollarHelper = new Operations();
+        Preferences.saveCurrentQuotation(0);
         boolean dollarVerify = dollarHelper.verifyDollar(currentDollar);
 
         assertEquals(true, dollarVerify);
