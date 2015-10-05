@@ -95,7 +95,11 @@ public class DollarActivity extends AppCompatActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        final double dollarValue = Operations.getCurrentDollar();
+                        Operations.loadQuotations();
+
+                        if (Operations.quotation == null) return;
+
+                        final double dollarValue = Double.parseDouble(Operations.quotation.getDolar().getCotacao());
 
                         runOnUiThread(new Runnable() {
                             @Override

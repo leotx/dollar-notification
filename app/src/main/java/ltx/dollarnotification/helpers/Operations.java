@@ -10,19 +10,24 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.Nullable;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.SyncHttpClient;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ExecutionException;
 
+import cz.msebera.android.httpclient.Header;
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.activities.DollarActivity;
+import ltx.dollarnotification.model.Quotation;
 
 public class Operations {
+    public static Quotation quotation;
+    private static final String URL_EXCHANGE = "http://developers.agenciaideias.com.br/cotacoes/json";
 
     public boolean verifyDollar(double currentDollar) {
         Context appContext = App.getContext();
@@ -55,7 +60,7 @@ public class Operations {
         return false;
     }
 
-    public double roundedValue(double entryValue, double compareValue){
+    public double roundedValue(double entryValue, double compareValue) {
         if (entryValue == 0) return compareValue;
 
         BigDecimal compareDecimal = BigDecimal.valueOf(entryValue);
@@ -65,6 +70,28 @@ public class Operations {
         }
 
         return compareValue;
+    }
+
+    public static Quotation loadQuotations() {
+        if (!isOnline()) {
+            return null;
+        }
+
+        SyncHttpClient client = new SyncHttpClient();
+        client.get(URL_EXCHANGE, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Gson gson = new Gson();
+                quotation = gson.fromJson(new String(responseBody), Quotation.class);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
+
+        return quotation;
     }
 
     private void showNotification() {
@@ -90,31 +117,8 @@ public class Operations {
     public static boolean isOnline() {
         Context appContext = App.getContext();
 
-        ConnectivityManager cm =
-                (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    @Nullable
-    public static double getCurrentDollar() {
-        try {
-            JSONObject jsonObject = new QuotationTask().execute().get();
-            if (jsonObject == null)
-                return 0.0;
-
-            JSONObject dollarObject = jsonObject.getJSONObject(App.getContext().getString(R.string.json_dolar));
-
-            return Double.parseDouble(dollarObject.getString(App.getContext()
-                    .getString(R.string.json_cotacao)));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return 0.0;
     }
 }

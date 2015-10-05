@@ -1,24 +1,14 @@
 package ltx.dollarnotification.activities;
 
-import android.content.Context;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.helpers.App;
 import ltx.dollarnotification.helpers.Operations;
-import ltx.dollarnotification.helpers.QuotationTask;
+import ltx.dollarnotification.model.Quotation;
 
 public class ExchangeActivity extends AppCompatActivity {
 
@@ -65,29 +55,21 @@ public class ExchangeActivity extends AppCompatActivity {
     }
 
     public void getExchanges() {
-        try {
-            JSONObject exchangeObject = new QuotationTask().execute().get();
+        Operations.loadQuotations();
 
-            if (exchangeObject == null) return;
+        Quotation quotation = Operations.quotation;
 
-            JSONObject dollarObject = exchangeObject.getJSONObject(getString(R.string.json_dolar));
-            JSONObject euroObject = exchangeObject.getJSONObject(getString(R.string.json_euro));
-            JSONObject bovespaObject = exchangeObject.getJSONObject(getString(R.string.json_bovespa));
+        if (quotation == null)
+            return;
 
-            lblDollarValue.setText(dollarObject.getString(getString(R.string.json_cotacao)));
-            lblDollarVariation.setText(dollarObject.getString(getString(R.string.json_variation)));
+        lblDollarValue.setText(quotation.getDolar().getCotacao());
+        lblDollarVariation.setText(quotation.getDolar().getVariacao());
 
-            lblEuroValue.setText(euroObject.getString(getString(R.string.json_cotacao)));
-            lblEuroVariation.setText(euroObject.getString(getString(R.string.json_variation)));
+        lblEuroValue.setText(quotation.getEuro().getCotacao());
+        lblEuroVariation.setText(quotation.getEuro().getVariacao());
 
-            lblBovespaValue.setText(bovespaObject.getString(getString(R.string.json_cotacao)));
-            lblBovespaVariation.setText(bovespaObject.getString(getString(R.string.json_variation)));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        lblBovespaValue.setText(quotation.getBovespa().getCotacao());
+        lblBovespaVariation.setText(quotation.getBovespa().getVariacao());
+
     }
 }

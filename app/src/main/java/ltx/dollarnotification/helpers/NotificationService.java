@@ -8,6 +8,8 @@ import android.os.IBinder;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ltx.dollarnotification.model.Quotation;
+
 public class NotificationService extends Service {
     public static final long NOTIFY_INTERVAL = 1 * 60000; // 1 minute
     private Handler mHandler = new Handler();
@@ -42,7 +44,11 @@ public class NotificationService extends Service {
                         return;
                     }
 
-                    Double currentDollar = Operations.getCurrentDollar();
+                    Operations.loadQuotations();
+
+                    if (Operations.quotation == null) return;
+
+                    Double currentDollar = Double.parseDouble(Operations.quotation.getDolar().getCotacao());
                     Operations dollarHelper = new Operations();
                     dollarHelper.verifyDollar(currentDollar);
                 }
