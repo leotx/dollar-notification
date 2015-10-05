@@ -24,4 +24,28 @@ public class Preferences {
         sharedEditor.putString(appContext.getString(R.string.preferences_quotation_value), dollar);
         sharedEditor.commit();
     }
+
+    public static void activateNotification(){
+        Notification(true);
+    }
+
+    public static void deactivateNotification(){
+        Notification(false);
+    }
+
+    public static boolean getNotification(){
+        Context appContext = App.getContext();
+        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
+        return settings.getBoolean(appContext.getString(R.string.preferences_notification_active), false);
+    }
+
+    private static void Notification(boolean activateNotification) {
+        Context appContext = App.getContext();
+
+        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
+        SharedPreferences.Editor sharedEditor = settings.edit();
+
+        sharedEditor.putBoolean(appContext.getString(R.string.preferences_notification_active), activateNotification);
+        sharedEditor.commit();
+    }
 }

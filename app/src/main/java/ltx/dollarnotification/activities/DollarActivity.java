@@ -116,22 +116,34 @@ public class DollarActivity extends ActionBarActivity {
         btnNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View vw) {
-                if (txtPercentage.getText().toString().matches("")){
-                    Toast.makeText(getApplicationContext(), R.string.notification_error, Toast.LENGTH_SHORT).show();
+                boolean notificationActive = Preferences.getNotification();
+
+                if (!notificationActive){
+                    if (txtPercentage.getText().toString().matches("")){
+                        Toast.makeText(getApplicationContext(), R.string.notification_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                    String dollarValue = txtDollarValue.getText().toString().replace("$","");
+
+                    Preferences.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
+                    Preferences.activateNotification();
+
+                    btnNotification.setText(R.string.deactivate_notification);
+
+                    Toast.makeText(getApplicationContext(), R.string.notification_done, Toast.LENGTH_SHORT).show();
+                } else {
+                    btnNotification.setText(R.string.activate_notification);
+
+                    Preferences.deactivateNotification();
+
+                    Toast.makeText(getApplicationContext(), R.string.notification_deactivated, Toast.LENGTH_SHORT).show();
                 }
-
-                String dollarValue = txtDollarValue.getText().toString().replace("$","");
-
-                Preferences.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
-
-                Toast.makeText(getApplicationContext(), R.string.notification_done, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_dolar, menu);
         return true;
     }

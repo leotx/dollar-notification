@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class NotificationService extends Service {
-    public static final long NOTIFY_INTERVAL = 10 * 60000; // 10 minutes
+    public static final long NOTIFY_INTERVAL = 1 * 60000; // 1 minute
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
 
@@ -36,7 +36,9 @@ public class NotificationService extends Service {
 
                 @Override
                 public void run() {
-                    if (!Operations.isOnline()){
+                    boolean notificationActive = Preferences.getNotification();
+
+                    if (!Operations.isOnline() || !notificationActive){
                         return;
                     }
 

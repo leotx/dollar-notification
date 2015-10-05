@@ -43,8 +43,11 @@
         android:id="@+id/btnNotification"
         android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_alignRight="@+id/txtEntryValue"
+        android:layout_alignEnd="@+id/txtEntryValue"
+        android:layout_alignLeft="@+id/txtEntryValue"
+        android:layout_alignStart="@+id/txtEntryValue" />
 
     <TextView
         android:layout_width="wrap_content"
