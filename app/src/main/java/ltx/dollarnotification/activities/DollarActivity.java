@@ -122,7 +122,6 @@ public class DollarActivity extends AppCompatActivity {
                         } finally {
                             dAnimate.stop();
                         }
-
                     }
                 });
 

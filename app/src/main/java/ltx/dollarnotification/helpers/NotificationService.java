@@ -7,7 +7,6 @@ import android.os.IBinder;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.model.Quotation;
 

@@ -9,8 +9,7 @@ public class Preferences {
     public static void createPreferences(String dollar, String entryValue, boolean isPercentage){
         Context appContext = App.getContext();
 
-        final SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        SharedPreferences.Editor sharedEditor = settings.edit();
+        SharedPreferences.Editor sharedEditor = createEditor();
         sharedEditor.remove(appContext.getString(R.string.preferences_percentage));
         sharedEditor.remove(appContext.getString(R.string.preferences_currency_value));
 
@@ -39,11 +38,16 @@ public class Preferences {
         return settings.getBoolean(appContext.getString(R.string.preferences_notification_active), false);
     }
 
+    private static SharedPreferences.Editor createEditor(){
+        Context appContext = App.getContext();
+        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
+        return settings.edit();
+    }
+
     private static void Notification(boolean activateNotification) {
         Context appContext = App.getContext();
 
-        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        SharedPreferences.Editor sharedEditor = settings.edit();
+        SharedPreferences.Editor sharedEditor = createEditor();
 
         sharedEditor.putBoolean(appContext.getString(R.string.preferences_notification_active), activateNotification);
         sharedEditor.commit();
@@ -52,8 +56,7 @@ public class Preferences {
     public static void saveCurrentQuotation(double currentDollar) {
         Context appContext = App.getContext();
 
-        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        SharedPreferences.Editor sharedEditor = settings.edit();
+        SharedPreferences.Editor sharedEditor = createEditor();
 
         sharedEditor.putString(appContext.getString(R.string.preferences_last_quotation_value), String.valueOf(currentDollar));
         sharedEditor.commit();
