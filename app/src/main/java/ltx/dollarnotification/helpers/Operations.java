@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.activities.DollarActivity;
-import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.models.Quotation;
 
 public class Operations {
 

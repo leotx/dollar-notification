@@ -8,7 +8,7 @@ import android.os.IBinder;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.models.Quotation;
 
 public class NotificationService extends Service {
     public static final long NOTIFY_INTERVAL = 1 * 60000; // 1 minute

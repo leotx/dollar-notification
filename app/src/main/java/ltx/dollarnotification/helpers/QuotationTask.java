@@ -9,7 +9,7 @@ import com.loopj.android.http.SyncHttpClient;
 
 import cz.msebera.android.httpclient.Header;
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.models.Quotation;
 
 public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
     private static Quotation quotation;

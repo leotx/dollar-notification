@@ -6,13 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.helpers.Operations;
-import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.models.Quotation;
 
 public class ExchangeActivity extends AppCompatActivity {
 

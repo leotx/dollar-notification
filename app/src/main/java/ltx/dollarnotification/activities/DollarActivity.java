@@ -22,7 +22,7 @@ import ltx.dollarnotification.helpers.Operations;
 import ltx.dollarnotification.helpers.NotificationService;
 import ltx.dollarnotification.helpers.Preferences;
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.models.Quotation;
 
 public class DollarActivity extends AppCompatActivity {
 
