@@ -48,19 +48,20 @@ public class DollarActivity extends ActionBarActivity {
         rPercentage = (RadioButton) findViewById(R.id.rPercentage);
         rValue = (RadioButton) findViewById(R.id.rValue);
 
-        verifyType(settings);
-
         btnNotification = (Button) findViewById(R.id.btnNotification);
         notificationClick();
 
         btnRefresh = (Button) findViewById(R.id.btnRefresh);
         refreshClick();
 
+        verifyType(settings);
+
         btnRefresh.performClick();
     }
 
     private void verifyType(SharedPreferences settings) {
         boolean isPercentage = settings.getBoolean(getString(R.string.preferences_ispercentage), true);
+        boolean notificationActive = Preferences.getNotification();
 
         if (isPercentage){
             rPercentage.setChecked(true);
@@ -69,6 +70,12 @@ public class DollarActivity extends ActionBarActivity {
         else {
             rValue.setChecked(true);
             txtPercentage.setText(settings.getString(getString(R.string.preferences_currency_value), ""));
+        }
+
+        if (notificationActive){
+            btnNotification.setText(R.string.deactivate_notification);
+        } else {
+            btnNotification.setText(R.string.activate_notification);
         }
     }
 
