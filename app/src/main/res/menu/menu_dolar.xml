@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".DolarActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".DollarActivity">
     <item android:id="@+id/action_exchange" android:title="@string/action_exchange"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

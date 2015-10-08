@@ -6,35 +6,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.helpers.Operations;
 import ltx.dollarnotification.models.Quotation;
 
 public class ExchangeActivity extends AppCompatActivity {
 
+    @Bind(R.id.lblDollarValue)
     TextView lblDollarValue;
+    @Bind(R.id.lblDollarVariation)
     TextView lblDollarVariation;
+    @Bind(R.id.lblEuroValue)
     TextView lblEuroValue;
+    @Bind(R.id.lblEuroVariation)
     TextView lblEuroVariation;
+    @Bind(R.id.lblBovespaValue)
     TextView lblBovespaValue;
+    @Bind(R.id.lblBovespaVariation)
     TextView lblBovespaVariation;
+    @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange);
+        ButterKnife.bind(this);
 
-        lblDollarValue = (TextView) findViewById(R.id.lblDollarValue);
-        lblDollarVariation = (TextView) findViewById(R.id.lblDollarVariation);
-        lblEuroValue = (TextView) findViewById(R.id.lblEuroValue);
-        lblEuroVariation = (TextView) findViewById(R.id.lblEuroVariation);
-        lblBovespaValue = (TextView) findViewById(R.id.lblBovespaValue);
-        lblBovespaVariation = (TextView) findViewById(R.id.lblBovespaVariation);
-
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         loadSwipe();
-
         Quotation quotation = Operations.getQuotation();
         getExchanges(quotation);
     }
