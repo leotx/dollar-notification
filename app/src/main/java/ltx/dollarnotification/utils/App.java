@@ -1,4 +1,4 @@
-package ltx.dollarnotification.helpers;
+package ltx.dollarnotification.utils;
 
 import android.app.Application;
 import android.content.Context;

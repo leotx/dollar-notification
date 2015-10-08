@@ -1,4 +1,4 @@
-package ltx.dollarnotification.models;
+package ltx.dollarnotification.model;
 
 public class Quotation {
     private ValueQuotation bovespa;

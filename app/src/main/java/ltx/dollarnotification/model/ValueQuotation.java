@@ -1,4 +1,4 @@
-package ltx.dollarnotification.models;
+package ltx.dollarnotification.model;
 
 public class ValueQuotation {
     private String cotacao;

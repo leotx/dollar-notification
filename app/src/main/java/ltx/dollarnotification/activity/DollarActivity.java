@@ -1,4 +1,4 @@
-package ltx.dollarnotification.activities;
+package ltx.dollarnotification.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,11 +20,11 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import ltx.dollarnotification.helpers.Operations;
-import ltx.dollarnotification.helpers.NotificationService;
-import ltx.dollarnotification.helpers.Preferences;
+import ltx.dollarnotification.utils.Operations;
+import ltx.dollarnotification.utils.NotificationService;
+import ltx.dollarnotification.utils.Preferences;
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.models.Quotation;
+import ltx.dollarnotification.model.Quotation;
 
 public class DollarActivity extends AppCompatActivity {
 

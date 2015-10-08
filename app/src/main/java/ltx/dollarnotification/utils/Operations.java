@@ -1,4 +1,4 @@
-package ltx.dollarnotification.helpers;
+package ltx.dollarnotification.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.activities.DollarActivity;
-import ltx.dollarnotification.models.Quotation;
+import ltx.dollarnotification.activity.DollarActivity;
+import ltx.dollarnotification.model.Quotation;
 
 public class Operations {
 

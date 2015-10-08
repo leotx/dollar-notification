@@ -1,4 +1,4 @@
-package ltx.dollarnotification.activities;
+package ltx.dollarnotification.activity;
 
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.helpers.Operations;
-import ltx.dollarnotification.models.Quotation;
+import ltx.dollarnotification.utils.Operations;
+import ltx.dollarnotification.model.Quotation;
 
 public class ExchangeActivity extends AppCompatActivity {
 

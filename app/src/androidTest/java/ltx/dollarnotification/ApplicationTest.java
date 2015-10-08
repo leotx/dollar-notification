@@ -3,8 +3,8 @@ package ltx.dollarnotification;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import ltx.dollarnotification.helpers.Operations;
-import ltx.dollarnotification.helpers.Preferences;
+import ltx.dollarnotification.utils.Operations;
+import ltx.dollarnotification.utils.Preferences;
 
 public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {

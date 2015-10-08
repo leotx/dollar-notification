@@ -1,4 +1,4 @@
-package ltx.dollarnotification.helpers;
+package ltx.dollarnotification.utils;
 
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -9,7 +9,7 @@ import com.loopj.android.http.SyncHttpClient;
 
 import cz.msebera.android.httpclient.Header;
 import ltx.dollarnotification.R;
-import ltx.dollarnotification.models.Quotation;
+import ltx.dollarnotification.model.Quotation;
 
 public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
     private static Quotation quotation;
