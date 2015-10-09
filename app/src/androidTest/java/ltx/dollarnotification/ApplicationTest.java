@@ -8,11 +8,19 @@ import ltx.dollarnotification.utils.Operations;
 import ltx.dollarnotification.utils.Preferences;
 
 public class ApplicationTest extends ApplicationTestCase<Application> {
-    private final Context applicationContext;
+    private Context applicationContext;
 
     public ApplicationTest() {
         super(Application.class);
-        applicationContext = getContext().getApplicationContext();
+    }
+
+    @Override
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+
+        createApplication();
+        applicationContext = getApplication().getApplicationContext();
     }
 
     public void testVerifyDollarValue(){
