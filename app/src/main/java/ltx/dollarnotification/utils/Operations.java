@@ -21,31 +21,29 @@ import ltx.dollarnotification.model.Quotation;
 
 public class Operations {
 
-    public boolean verifyDollar(double currentDollar) {
-        Context appContext = App.getContext();
-
-        final SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        Double percentageEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_percentage), "0.0"));
-        Double currencyEntry = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_currency_value), "0.0"));
-        Double quotationDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_quotation_value), "0.0"));
-        Double lastDollar = Double.parseDouble(settings.getString(appContext.getString(R.string.preferences_last_quotation_value), "0.0"));
+    public boolean verifyDollar(Context applicationContext, double currentDollar) {
+        final SharedPreferences settings = applicationContext.getSharedPreferences(Constants.PREFERENCES_NAME, 0);
+        Double percentageEntry = Double.parseDouble(settings.getString(Constants.PREFERENCES_PERCENTAGE, "0.0"));
+        Double currencyEntry = Double.parseDouble(settings.getString(Constants.PREFERENCES_CURRENCY_VALUE, "0.0"));
+        Double quotationDollar = Double.parseDouble(settings.getString(Constants.PREFERENCES_QUOTATION_VALUE, "0.0"));
+        Double lastDollar = Double.parseDouble(settings.getString(Constants.PREFERENCES_LAST_QUOTATION_VALUE, "0.0"));
 
         currentDollar = roundedValue(currencyEntry, currentDollar);
 
         if (lastDollar == currentDollar || currentDollar == 0)
             return false;
 
-        Preferences.saveCurrentQuotation(currentDollar);
+        Preferences.saveCurrentQuotation(applicationContext, currentDollar);
 
         if (percentageEntry > 0) {
             Double currentPercentage = roundedValue(percentageEntry, ((quotationDollar / currentDollar) - 1) * 100);
 
             if (currentPercentage >= percentageEntry) {
-                showNotification();
+                showNotification(applicationContext);
                 return true;
             }
         } else if (currencyEntry > 0 && currentDollar <= currencyEntry) {
-            showNotification();
+            showNotification(applicationContext);
             return true;
         }
 
@@ -64,12 +62,10 @@ public class Operations {
         return compareValue;
     }
 
-    private void showNotification() {
-        Context appContext = App.getContext();
-
-        PendingIntent pi = PendingIntent.getActivity(appContext, 0, new Intent(appContext, DollarActivity.class), 0);
-        Resources r = appContext.getResources();
-        Notification notification = new NotificationCompat.Builder(appContext)
+    private void showNotification(Context applicationContext) {
+        PendingIntent pi = PendingIntent.getActivity(applicationContext, 0, new Intent(applicationContext, DollarActivity.class), 0);
+        Resources r = applicationContext.getResources();
+        Notification notification = new NotificationCompat.Builder(applicationContext)
                 .setTicker(r.getString(R.string.notification_title))
                 .setSmallIcon(R.drawable.dollar)
                 .setContentTitle(r.getString(R.string.notification_title))
@@ -80,21 +76,19 @@ public class Operations {
                 .setLights(Color.RED, 3000, 3000)
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(appContext.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) applicationContext.getSystemService(applicationContext.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notification);
     }
 
-    public static boolean isOnline() {
-        Context appContext = App.getContext();
-
-        ConnectivityManager cm = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isOnline(Context applicationContext) {
+        ConnectivityManager cm = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public static Quotation getQuotation(){
+    public static Quotation getQuotation(Context applicationContext){
         try {
-            return new QuotationTask().execute().get();
+            return new QuotationTask(applicationContext).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

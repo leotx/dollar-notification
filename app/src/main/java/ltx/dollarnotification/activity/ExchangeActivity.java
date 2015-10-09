@@ -36,7 +36,7 @@ public class ExchangeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         loadSwipe();
-        Quotation quotation = Operations.getQuotation();
+        Quotation quotation = Operations.getQuotation(getApplicationContext());
         getExchanges(quotation);
     }
 
@@ -47,7 +47,7 @@ public class ExchangeActivity extends AppCompatActivity {
 
                 Thread thread = new Thread(new Runnable() {
                     public void run() {
-                        final Quotation quotation = Operations.getQuotation();
+                        final Quotation quotation = Operations.getQuotation(getApplicationContext());
 
                         runOnUiThread(new Runnable() {
                             @Override

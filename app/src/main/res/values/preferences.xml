@@ -1,9 +1,0 @@
-<resources>
-    <string name="preferences_name">DOLLAR</string>
-    <string name="preferences_percentage">PERCENTAGE</string>
-    <string name="preferences_quotation_value">QUOTATION_VALUE</string>
-    <string name="preferences_currency_value">CURRENCY_VALUE</string>
-    <string name="preferences_ispercentage">PREFERENCES_ISPERCENTAGE</string>
-    <string name="preferences_notification_active">PREFERENCES_NOTIFICATION_ACTIVE</string>
-    <string name="preferences_last_quotation_value">PREFERENCES_LAST_QUOTATION_VALUE</string>
-</resources>

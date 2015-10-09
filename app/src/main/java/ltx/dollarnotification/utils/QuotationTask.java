@@ -1,5 +1,6 @@
 package ltx.dollarnotification.utils;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -14,6 +15,11 @@ import ltx.dollarnotification.model.Quotation;
 public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
     private static Quotation quotation;
     private static final String URL_EXCHANGE = "http://developers.agenciaideias.com.br/cotacoes/json";
+    private static Context applicationContext = null;
+
+    public QuotationTask (Context context){
+        applicationContext = context;
+    }
 
     @Override
     protected Quotation doInBackground(Void... v) {
@@ -23,7 +29,7 @@ public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
     }
 
     private static Quotation loadQuotations() {
-        if (!Operations.isOnline()) {
+        if (!Operations.isOnline(applicationContext)) {
             return null;
         }
 
@@ -37,7 +43,7 @@ public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(App.getContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, R.string.connection_error, Toast.LENGTH_SHORT).show();
             }
         });
 

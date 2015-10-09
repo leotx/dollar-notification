@@ -3,62 +3,54 @@ package ltx.dollarnotification.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import ltx.dollarnotification.R;
-
 public class Preferences {
-    public static void createPreferences(String dollar, String entryValue, boolean isPercentage){
-        Context appContext = App.getContext();
-
-        SharedPreferences.Editor sharedEditor = createEditor();
-        sharedEditor.remove(appContext.getString(R.string.preferences_percentage));
-        sharedEditor.remove(appContext.getString(R.string.preferences_currency_value));
+    public static void createPreferences(Context applicationContext, String dollar, String entryValue, boolean isPercentage){
+        SharedPreferences.Editor sharedEditor = createEditor(applicationContext);
+        sharedEditor.remove(Constants.PREFERENCES_PERCENTAGE);
+        sharedEditor.remove(Constants.PREFERENCES_CURRENCY_VALUE);
 
         if (isPercentage) {
-            sharedEditor.putString(appContext.getString(R.string.preferences_percentage), entryValue);
+            sharedEditor.putString(Constants.PREFERENCES_PERCENTAGE, entryValue);
         } else {
-            sharedEditor.putString(appContext.getString(R.string.preferences_currency_value), entryValue);
+            sharedEditor.putString(Constants.PREFERENCES_CURRENCY_VALUE, entryValue);
         }
 
-        sharedEditor.putBoolean(appContext.getString(R.string.preferences_ispercentage), isPercentage);
-        sharedEditor.putString(appContext.getString(R.string.preferences_quotation_value), dollar);
+        sharedEditor.putBoolean(Constants.PREFERENCES_IS_PERCENTAGE, isPercentage);
+        sharedEditor.putString(Constants.PREFERENCES_QUOTATION_VALUE, dollar);
         sharedEditor.commit();
     }
 
-    public static void activateNotification(){
-        Notification(true);
+    public static void activateNotification(Context applicationContext){
+        Notification(applicationContext, true);
     }
 
-    public static void deactivateNotification(){
-        Notification(false);
+    public static void deactivateNotification(Context applicationContext){
+        Notification(applicationContext, false);
     }
 
-    public static boolean getNotification(){
-        Context appContext = App.getContext();
-        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
-        return settings.getBoolean(appContext.getString(R.string.preferences_notification_active), false);
+    public static boolean getNotification(Context applicationContext){
+        SharedPreferences settings = applicationContext.getSharedPreferences(Constants.PREFERENCES_NAME, 0);
+
+        return settings.getBoolean(Constants.PREFERENCES_NOTIFICATION_ACTIVE, false);
     }
 
-    private static SharedPreferences.Editor createEditor(){
-        Context appContext = App.getContext();
-        SharedPreferences settings = appContext.getSharedPreferences(appContext.getString(R.string.preferences_name), 0);
+    private static SharedPreferences.Editor createEditor(Context applicationContext){
+        SharedPreferences settings = applicationContext.getSharedPreferences(Constants.PREFERENCES_NAME, 0);
+
         return settings.edit();
     }
 
-    private static void Notification(boolean activateNotification) {
-        Context appContext = App.getContext();
+    private static void Notification(Context applicationContext, boolean activateNotification) {
+        SharedPreferences.Editor sharedEditor = createEditor(applicationContext);
 
-        SharedPreferences.Editor sharedEditor = createEditor();
-
-        sharedEditor.putBoolean(appContext.getString(R.string.preferences_notification_active), activateNotification);
+        sharedEditor.putBoolean(Constants.PREFERENCES_NOTIFICATION_ACTIVE, activateNotification);
         sharedEditor.commit();
     }
 
-    public static void saveCurrentQuotation(double currentDollar) {
-        Context appContext = App.getContext();
+    public static void saveCurrentQuotation(Context applicationContext, double currentDollar) {
+        SharedPreferences.Editor sharedEditor = createEditor(applicationContext);
 
-        SharedPreferences.Editor sharedEditor = createEditor();
-
-        sharedEditor.putString(appContext.getString(R.string.preferences_last_quotation_value), String.valueOf(currentDollar));
+        sharedEditor.putString(Constants.PREFERENCES_LAST_QUOTATION_VALUE, String.valueOf(currentDollar));
         sharedEditor.commit();
     }
 }

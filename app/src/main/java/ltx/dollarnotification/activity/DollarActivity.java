@@ -20,6 +20,7 @@ import java.util.Locale;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ltx.dollarnotification.utils.Constants;
 import ltx.dollarnotification.utils.Operations;
 import ltx.dollarnotification.utils.NotificationService;
 import ltx.dollarnotification.utils.Preferences;
@@ -49,7 +50,7 @@ public class DollarActivity extends AppCompatActivity {
 
         startService(new Intent(this, NotificationService.class));
 
-        final SharedPreferences settings = getSharedPreferences(getString(R.string.preferences_name), 0);
+        final SharedPreferences settings = getSharedPreferences(Constants.PREFERENCES_NAME, 0);
 
         verifyType(settings);
         refreshDollar();
@@ -62,15 +63,15 @@ public class DollarActivity extends AppCompatActivity {
     }
 
     private void verifyType(SharedPreferences settings) {
-        boolean isPercentage = settings.getBoolean(getString(R.string.preferences_ispercentage), true);
-        boolean notificationActive = Preferences.getNotification();
+        boolean isPercentage = settings.getBoolean(Constants.PREFERENCES_IS_PERCENTAGE, true);
+        boolean notificationActive = Preferences.getNotification(getApplicationContext());
 
         if (isPercentage) {
             rPercentage.setChecked(true);
-            txtPercentage.setText(settings.getString(getString(R.string.preferences_percentage), ""));
+            txtPercentage.setText(settings.getString(Constants.PREFERENCES_PERCENTAGE, ""));
         } else {
             rValue.setChecked(true);
-            txtPercentage.setText(settings.getString(getString(R.string.preferences_currency_value), ""));
+            txtPercentage.setText(settings.getString(Constants.PREFERENCES_CURRENCY_VALUE, ""));
         }
 
         if (notificationActive) {
@@ -87,7 +88,7 @@ public class DollarActivity extends AppCompatActivity {
 
         Thread thread = new Thread(new Runnable() {
             public void run() {
-                Quotation quotation = Operations.getQuotation();
+                Quotation quotation = Operations.getQuotation(getApplicationContext());
 
                 if (quotation == null) {
                     dAnimate.stop();
@@ -121,7 +122,7 @@ public class DollarActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnNotification)
     public  void notificationClick() {
-        boolean notificationActive = Preferences.getNotification();
+        boolean notificationActive = Preferences.getNotification(getApplicationContext());
 
         if (!notificationActive) {
             if (txtPercentage.getText().toString().matches("")) {
@@ -131,8 +132,8 @@ public class DollarActivity extends AppCompatActivity {
 
             String dollarValue = lblDollarValue.getText().toString().replace("R$ ", "");
 
-            Preferences.createPreferences(dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
-            Preferences.activateNotification();
+            Preferences.createPreferences(getApplicationContext(), dollarValue, String.valueOf(txtPercentage.getText()), rPercentage.isChecked());
+            Preferences.activateNotification(getApplicationContext());
 
             btnNotification.setText(R.string.deactivate_notification);
 
@@ -140,7 +141,7 @@ public class DollarActivity extends AppCompatActivity {
         } else {
             btnNotification.setText(R.string.activate_notification);
 
-            Preferences.deactivateNotification();
+            Preferences.deactivateNotification(getApplicationContext());
 
             Toast.makeText(getApplicationContext(), R.string.notification_deactivated, Toast.LENGTH_SHORT).show();
         }

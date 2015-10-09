@@ -38,18 +38,18 @@ public class NotificationService extends Service {
 
                 @Override
                 public void run() {
-                    boolean notificationActive = Preferences.getNotification();
+                    boolean notificationActive = Preferences.getNotification(getApplicationContext());
 
-                    if (!Operations.isOnline() || !notificationActive){
+                    if (!Operations.isOnline(getApplicationContext()) || !notificationActive){
                         return;
                     }
 
-                    Quotation quotation = Operations.getQuotation();
+                    Quotation quotation = Operations.getQuotation(getApplicationContext());
                     if (quotation == null) return;
 
                     Double currentDollar = Double.parseDouble(quotation.getDolar().getCotacao());
                     Operations dollarHelper = new Operations();
-                    dollarHelper.verifyDollar(currentDollar);
+                    dollarHelper.verifyDollar(getApplicationContext(), currentDollar);
                 }
             });
         }
