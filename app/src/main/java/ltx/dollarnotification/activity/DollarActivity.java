@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -21,11 +23,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ltx.dollarnotification.utils.Constants;
-import ltx.dollarnotification.utils.Operations;
 import ltx.dollarnotification.utils.NotificationService;
 import ltx.dollarnotification.utils.Preferences;
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.utils.QuotationTask;
+import ltx.dollarnotification.utils.TaskDelegate;
 
 public class DollarActivity extends AppCompatActivity {
 
@@ -41,12 +44,17 @@ public class DollarActivity extends AppCompatActivity {
     RadioButton rPercentage;
     @Bind(R.id.rValue)
     RadioButton rValue;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dollar);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        setTitle(R.string.dollar_activity);
 
         startService(new Intent(this, NotificationService.class));
 
@@ -86,42 +94,34 @@ public class DollarActivity extends AppCompatActivity {
         final AnimationDrawable dAnimate = (AnimationDrawable) btnRefresh.getCompoundDrawables()[0];
         dAnimate.start();
 
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                Quotation quotation = Operations.getQuotation(getApplicationContext());
+        new QuotationTask(getApplicationContext(), getQuotationDelegate()).execute();
 
-                if (quotation == null) {
-                    dAnimate.stop();
-                    return;
-                }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            dAnimate.stop();
+        }
+    }
 
+    @NonNull
+    private TaskDelegate getQuotationDelegate() {
+        return new TaskDelegate() {
+            @Override
+            public void taskCompletionResult(Quotation quotation) {
                 final double dollarValue = Double.parseDouble(quotation.getDolar().getCotacao());
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
-                        DecimalFormat formatter = new DecimalFormat("R$ ##0.00##", otherSymbols);
+                DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+                DecimalFormat formatter = new DecimalFormat("R$ ##0.00##", otherSymbols);
 
-                        lblDollarValue.setText(formatter.format(dollarValue));
-                    }
-                });
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    dAnimate.stop();
-                }
+                lblDollarValue.setText(formatter.format(dollarValue));
             }
-        });
-
-        thread.start();
+        };
     }
 
     @OnClick(R.id.btnNotification)
-    public  void notificationClick() {
+    public void notificationClick() {
         boolean notificationActive = Preferences.getNotification(getApplicationContext());
 
         if (!notificationActive) {

@@ -13,7 +13,6 @@ import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ExecutionException;
 
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.activity.DollarActivity;
@@ -84,17 +83,5 @@ public class Operations {
         ConnectivityManager cm = (ConnectivityManager) applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    public static Quotation getQuotation(Context applicationContext){
-        try {
-            return new QuotationTask(applicationContext).execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

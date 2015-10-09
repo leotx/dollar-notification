@@ -4,7 +4,11 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -40,18 +44,27 @@ public class NotificationService extends Service {
                 public void run() {
                     boolean notificationActive = Preferences.getNotification(getApplicationContext());
 
-                    if (!Operations.isOnline(getApplicationContext()) || !notificationActive){
+                    if (!Operations.isOnline(getApplicationContext()) || !notificationActive) {
                         return;
                     }
 
-                    Quotation quotation = Operations.getQuotation(getApplicationContext());
-                    if (quotation == null) return;
-
-                    Double currentDollar = Double.parseDouble(quotation.getDolar().getCotacao());
-                    Operations dollarHelper = new Operations();
-                    dollarHelper.verifyDollar(getApplicationContext(), currentDollar);
+                    new QuotationTask(getApplicationContext(), getQuotationDelegate()).execute();
                 }
             });
         }
+    }
+
+    @NonNull
+    private TaskDelegate getQuotationDelegate() {
+        return new TaskDelegate() {
+            @Override
+            public void taskCompletionResult(Quotation quotation) {
+                if (quotation == null) return;
+
+                Double currentDollar = Double.parseDouble(quotation.getDolar().getCotacao());
+                Operations dollarHelper = new Operations();
+                dollarHelper.verifyDollar(getApplicationContext(), currentDollar);
+            }
+        };
     }
 }

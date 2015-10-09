@@ -16,9 +16,11 @@ public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
     private static Quotation quotation;
     private static final String URL_EXCHANGE = "http://developers.agenciaideias.com.br/cotacoes/json";
     private static Context applicationContext = null;
+    private final TaskDelegate delegate;
 
-    public QuotationTask (Context context){
+    public QuotationTask (Context context, TaskDelegate delegate){
         applicationContext = context;
+        this.delegate = delegate;
     }
 
     @Override
@@ -48,5 +50,11 @@ public class QuotationTask extends AsyncTask<Void, Void, Quotation> {
         });
 
         return quotation;
+    }
+
+    @Override
+    protected void onPostExecute(Quotation  quotation) {
+        super.onPostExecute(quotation);
+        delegate.taskCompletionResult(quotation);
     }
 }

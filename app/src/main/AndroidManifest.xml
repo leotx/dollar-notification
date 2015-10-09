@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".utils.NotificationService" />
-
         <activity
             android:name=".activity.ExchangeActivity"
             android:label="@string/title_activity_exchange"
             android:screenOrientation="portrait">
         </activity>
+
+        <service android:name=".utils.NotificationService" />
     </application>
 
 </manifest>

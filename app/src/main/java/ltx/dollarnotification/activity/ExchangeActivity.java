@@ -1,16 +1,24 @@
 package ltx.dollarnotification.activity;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ltx.dollarnotification.R;
 import ltx.dollarnotification.utils.Operations;
 import ltx.dollarnotification.model.Quotation;
+import ltx.dollarnotification.utils.QuotationTask;
+import ltx.dollarnotification.utils.TaskDelegate;
 
 public class ExchangeActivity extends AppCompatActivity {
 
@@ -28,6 +36,8 @@ public class ExchangeActivity extends AppCompatActivity {
     TextView lblBovespaVariation;
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +45,17 @@ public class ExchangeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_exchange);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+
         loadSwipe();
-        Quotation quotation = Operations.getQuotation(getApplicationContext());
-        getExchanges(quotation);
+        new QuotationTask(getApplicationContext(), getQuotationDelegate()).execute();
     }
 
     private void loadSwipe() {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                Thread thread = new Thread(new Runnable() {
-                    public void run() {
-                        final Quotation quotation = Operations.getQuotation(getApplicationContext());
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getExchanges(quotation);
-                            }
-                        });
-                    }
-                });
-
-                thread.start();
+                new QuotationTask(getApplicationContext(), getQuotationDelegate()).execute();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -73,6 +70,16 @@ public class ExchangeActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+    }
+
+    @NonNull
+    private TaskDelegate getQuotationDelegate() {
+        return new TaskDelegate() {
+            @Override
+            public void taskCompletionResult(Quotation quotation) {
+                getExchanges(quotation);
+            }
+        };
     }
 
     public void getExchanges(Quotation quotation) {
