@@ -12,23 +12,24 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_vertical"
         android:gravity="center">
 
         <TextView
             android:id="@+id/lblQuotation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/dollar_actual_value"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"/>
 
         <TextView
             android:id="@+id/lblCurrentDollarValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toRightOf="@id/lblQuotation"
             android:gravity="center"
             android:paddingLeft="5dp"
@@ -36,6 +37,16 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ff0000"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/progress"
+            android:gravity="center"
+            android:layout_toRightOf="@id/lblCurrentDollarValue"
+            android:paddingLeft="20dp" />
 
     </RelativeLayout>
 
@@ -84,17 +95,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:text="@string/activate_notification"
-        android:textColor="#ffffff" />
-
-
-    <Button
-        android:id="@+id/btnRefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/progress"
-        android:gravity="center"
-        android:paddingLeft="15dp" />
-
+        android:textColor="#ffffff"
+        android:layout_marginBottom="10dp"/>
 
 </LinearLayout>
