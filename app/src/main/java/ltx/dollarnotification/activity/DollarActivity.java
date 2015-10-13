@@ -102,7 +102,7 @@ public class DollarActivity extends AppCompatActivity {
             public void run() {
                 dAnimate.stop();
             }
-        }, 5000);
+        }, 2000);
     }
 
     @NonNull

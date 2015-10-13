@@ -2,6 +2,8 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="android:colorButtonNormal">#424242</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
